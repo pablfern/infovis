@@ -83,13 +83,13 @@
                 <h2>Add a new question</h2>
                 <form id="add_question_form">
                     New question<br>
-                    <input required id="question" type="text" name="question"><br>
+                    <input required id="question" type="text" name="question" style="width:200px"><br>
                     Agree<br>
-                    <input required id="agree" type="number" name="agree"><br>
+                    <input required min="0" max="100" id="agree" type="number" name="agree" style="width:200px"><br>
                     Neutral<br>
-                    <input required id="neutral" type="number" name="neutral"><br>
+                    <input required min="0" max="100" id="neutral" type="number" name="neutral" style="width:200px"><br>
                     Disagree<br>
-                    <input required id="disagree" type="number" name="disagree"><br>
+                    <input required min="0" max="100" id="disagree" type="number" name="disagree" style="width:200px"><br>
                     <br>
                     <input type="submit" class="btn btn-primary btn-xl page-scroll" value="Add new question">
                 </form>
