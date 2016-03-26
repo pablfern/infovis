@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Visualización de la Información</a>
+                <a class="navbar-brand page-scroll" href="../index.html">Volver</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -78,10 +78,10 @@
           <div class="row">
             <div id="data">
             </div>
-            <!--
-            <div>
+            <div style="text-align: center;">
+                <hr class="primary">
                 <h2>Add a new question</h2>
-                <form id="add_question_form" onSubmit="addQuestion()">
+                <form id="add_question_form">
                     New question<br>
                     <input required id="question" type="text" name="question"><br>
                     Agree<br>
@@ -91,13 +91,9 @@
                     Disagree<br>
                     <input required id="disagree" type="number" name="disagree"><br>
                     <br>
-                    <input type="submit" value="Add new question">
+                    <input type="submit" class="btn btn-primary btn-xl page-scroll" value="Add new question">
                 </form>
             </div>
-        -->
-          </div>
-          <div class="row" style="margin-top:50px; text-align:center;">
-            <a href="../index.html" class="btn btn-primary btn-xl page-scroll">Volver</a>     
           </div>
         </div>
     </section>
@@ -106,19 +102,53 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
   <script type="text/javascript">
 
-        window.onload = function(){
-            var data = [{"question":"I felt creative", "agree":88, "disagree":4, "neutral":8 },
-                                {"question":"I felt an emotional reaction", "agree":66, "disagree":12, "neutral":22 },
-                                {"question":"I learned something new about the text", "agree":63, "disagree":13, "neutral":24 },
-                                {"question":"It confirmed my understanding of the text", "agree":57, "disagree":10, "neutral":33 },
-                                {"question":"It jogged my memory", "agree":50, "disagree":15, "neutral":35 },
-                                {"question":"The Wordle confused me", "agree":5, "disagree":86, "neutral":9 }, ];
+        var data = [{"question":"I felt creative", "agree":88, "disagree":4, "neutral":8 },
+                    {"question":"I felt an emotional reaction", "agree":66, "disagree":12, "neutral":22 },
+                    {"question":"I learned something new about the text", "agree":63, "disagree":13, "neutral":24 },
+                    {"question":"It confirmed my understanding of the text", "agree":57, "disagree":10, "neutral":33 },
+                    {"question":"It jogged my memory", "agree":50, "disagree":15, "neutral":35 },
+                    {"question":"The Wordle confused me", "agree":5, "disagree":86, "neutral":9 }, ];
 
+        document.getElementById("add_question_form").addEventListener("submit", function(event){
+            event.preventDefault()
+            var question = document.getElementById("question").value;
+            var agree = Number(document.getElementById("agree").value);
+            var neutral = Number(document.getElementById("neutral").value);
+            var disagree = Number(document.getElementById("disagree").value);
+
+            if((agree + neutral + disagree ) != 100){
+                alert("La suma debe ser 100%");
+                return false;
+            }
+            data.push({"question": question, "agree":agree, "neutral": neutral, "disagree":disagree});
+            removeTable();
+            drawTable();
+            clearForm();
+            window.scrollTo(0, 0);
+            return true;
+        });
+
+        window.onload = function(){
+            drawTable();
+        }
+
+        function clearForm(){
+            document.getElementById("question").value = "";
+            document.getElementById("agree").value = "";
+            document.getElementById("neutral").value = "";
+            document.getElementById("disagree").value = "";            
+        }
+
+        function removeTable(){
+            var mysvg = document.getElementById("data").getElementsByTagName("svg")[0];
+            mysvg.parentNode.removeChild(mysvg);
+        }
+
+        function drawTable(){
                     var svgContainer = d3.select("div#data")
                                          .append("svg")
                                          .attr("width", 1200)
-                                         .attr("height", 200);
-
+                                         .attr("height", 20*data.length);
                     var svgData= svgContainer.selectAll("text")
                                     .data(data)
                                     .enter();
@@ -127,7 +157,6 @@
                                     .attr("font-family", "calibri")
                                     .attr("x", 1)
                                     .attr("y", function(d,i){return 15+i*20;});
-
                     var dim = 8;
                     var minRecX = 300;
                     var minTextX= 270;
@@ -163,7 +192,6 @@
                          .attr("y", function(d,i){return i*height;})
                          .attr("x", function(d){return d.agree*dim + d.neutral*dim + minTextX});
 
-
                     var rectDisagree = svgData.append("g");
                     rectDisagree.append("rect")
                                 .attr("x", function(d,i){return d.agree*dim + d.neutral*dim + minRecX ;})
@@ -177,291 +205,7 @@
                          .attr("fill", "white")
                          .attr("dy", ".85em")
                          .attr("y", function(d,i){return i*height;})
-                         .attr("x", function(d){return d.agree*dim + d.neutral*dim + d.disagree*dim + minTextX});
-        }
-
-
-        function addQuestion(){
-            var question = document.getElementById("question").value;
-            var agree = Number(document.getElementById("agree").value);
-            var neutral = Number(document.getElementById("neutral").value);
-            var disagree = Number(document.getElementById("disagree").value);
-
-            if((agree + neutral + disagree ) != 100){
-                alert("La suma debe ser 100%");
-                return false;
-            }
-
-            var data = [{"question": question, "agree": agree, "neutral": neutral, "disagree": disagree, }]
-
-            var svgContainer = d3.select("div#data")
-                                 .attr("width", 3000)
-                                 .attr("height", 200);
-
-            var svgData= svgContainer.selectAll("text")
-                                     .data(data)
-                                     .enter();
-            var svgText = svgData.append("text")
-                                 .text(function(d,i){ return d.question;})
-                                 .attr("font-family", "calibri")
-                                 .attr("x", 1)
-                                 .attr("y", function(d,i){return 15+i*20;});
-
-            var dim = 8;
-            var minRecX = 300;
-            var minTextX= 270;
-            var height = 20;
-            //Draw the Rectangle
-            var rectAgree = svgData.append("g");
-            rectAgree.append("rect")
-                     .attr("x", function(d,i){return minRecX;})
-                     .attr("y", function(d,i){return i*height;})
-                     .attr("width", function(d){return d.agree*dim;})
-                     .attr("height", height)
-                     .attr("stroke", "white")
-                     .attr("fill", "#006600");
-            rectAgree.append("text")
-                     .text(function(d){return d.agree + "%";})
-                     .attr("fill", "white")
-                     .attr("dy", ".85em")
-                     .attr("y", function(d,i){return i*height;})
-                     .attr("x", function(d){return d.agree*dim + minTextX});
-
-            var rectNeutral = svgData.append("g");
-            rectNeutral.append("rect")
-                    .attr("x", function(d,i){return d.agree*dim + minRecX;})
-                    .attr("y", function(d,i){return i*height;})
-                    .attr("width", function(d){return d.neutral*dim;})
-                    .attr("height", height)
-                    .attr("stroke", "whtie")
-                    .attr("fill", "#C0C0C0");
-            rectNeutral.append("text")
-                 .text(function(d){return d.neutral + "%";})
-                 .attr("fill", "black")
-                 .attr("dy", ".85em")
-                 .attr("y", function(d,i){return i*height;})
-                 .attr("x", function(d){return d.agree*dim + d.neutral*dim + minTextX});
-
-
-            var rectDisagree = svgData.append("g");
-            rectDisagree.append("rect")
-                        .attr("x", function(d,i){return d.agree*dim + d.neutral*dim + minRecX ;})
-                        .attr("y", function(d,i){return i*height;})
-                        .attr("width", function(d){return d.disagree*dim;})
-                        .attr("height", height)
-                        .attr("stroke", "white")
-                        .attr("fill", "#FF0000");
-           rectDisagree.append("text")
-                 .text(function(d){return d.disagree + "%";})
-                 .attr("fill", "white")
-                 .attr("dy", ".85em")
-                 .attr("y", function(d,i){return i*height;})
-                 .attr("x", function(d){return d.agree*dim + d.neutral*dim + d.disagree*dim + minTextX});
-            return false;
-        }
-    </script>
-  
-</html>
-
-<!--
-<html>
-
-    <head>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width">
-        <title>Clase 2 - SVG</title>
-    </head>
-    <body>
-        <h1>Clase 2 - SVG</h1>
-            <svg>
-                <g>
-                    <text font-family="calibri" x="10" y="15">Agree</text>
-                    <rect x="80" y="0" height="20" width="25" style="stroke: #006600; fill: #006600"/>
-                </g>
-                <g>
-                    <text font-family="calibri" x="10" y="40">Neutral</text>
-                    <rect x="80" y="25" height="20" width="25" style="stroke: #C0C0C0; fill: #C0C0C0"/>
-                </g>
-                <g>
-                    <text font-family="calibri" x="10" y="65">Disagree</text>
-                    <rect x="80" y="50" height="20" width="25" style="stroke: #FF0000; fill: #FF0000"/>
-                </g>
-            </svg>
-        <div id="data">
-            
-        </div>
-        <div>
-            <h2>Add a new question</h2>
-            <form id="add_question_form" onSubmit="addQuestion()">
-                New question<br>
-                <input required id="question" type="text" name="question"><br>
-                Agree<br>
-                <input required id="agree" type="number" name="agree"><br>
-                Neutral<br>
-                <input required id="neutral" type="number" name="neutral"><br>
-                Disagree<br>
-                <input required id="disagree" type="number" name="disagree"><br>
-                <br>
-                <input type="submit" value="Add new question">
-            </form>
-        </div>
-    </body>
-    <script type="text/javascript">
-
-        window.onload = function(){
-            var data = [{"question":"I felt creative", "agree":88, "disagree":4, "neutral":8 },
-                                {"question":"I felt an emotional reaction", "agree":66, "disagree":12, "neutral":22 },
-                                {"question":"I learned something new about the text", "agree":63, "disagree":13, "neutral":24 },
-                                {"question":"It confirmed my understanding of the text", "agree":57, "disagree":10, "neutral":33 },
-                                {"question":"It jogged my memory", "agree":50, "disagree":15, "neutral":35 },
-                                {"question":"The Wordle confused me", "agree":5, "disagree":86, "neutral":9 }, ];
-
-                    var svgContainer = d3.select("div#data")
-                                         .append("svg")
-                                         .attr("width", 3000)
-                                         .attr("height", 200);
-
-                    var svgData= svgContainer.selectAll("text")
-                                    .data(data)
-                                    .enter();
-                    var svgText = svgData.append("text")
-                                    .text(function(d,i){ return d.question;})
-                                    .attr("font-family", "calibri")
-                                    .attr("x", 1)
-                                    .attr("y", function(d,i){return 15+i*20;});
-
-                    var dim = 8;
-                    var minRecX = 300;
-                    var minTextX= 270;
-                    var height = 20;
-                    //Draw the Rectangle
-                    var rectAgree = svgData.append("g");
-                    rectAgree.append("rect")
-                             .attr("x", function(d,i){return minRecX;})
-                             .attr("y", function(d,i){return i*height;})
-                             .attr("width", function(d){return d.agree*dim;})
-                             .attr("height", height)
-                             .attr("stroke", "white")
-                             .attr("fill", "#006600");
-                    rectAgree.append("text")
-                             .text(function(d){return d.agree + "%";})
-                             .attr("fill", "white")
-                             .attr("dy", ".85em")
-                             .attr("y", function(d,i){return i*height;})
-                             .attr("x", function(d){return d.agree*dim + minTextX});
-
-                    var rectNeutral = svgData.append("g");
-                    rectNeutral.append("rect")
-                            .attr("x", function(d,i){return d.agree*dim + minRecX;})
-                            .attr("y", function(d,i){return i*height;})
-                            .attr("width", function(d){return d.neutral*dim;})
-                            .attr("height", height)
-                            .attr("stroke", "whtie")
-                            .attr("fill", "#C0C0C0");
-                    rectNeutral.append("text")
-                         .text(function(d){return d.neutral + "%";})
-                         .attr("fill", "black")
-                         .attr("dy", ".85em")
-                         .attr("y", function(d,i){return i*height;})
-                         .attr("x", function(d){return d.agree*dim + d.neutral*dim + minTextX});
-
-
-                    var rectDisagree = svgData.append("g");
-                    rectDisagree.append("rect")
-                                .attr("x", function(d,i){return d.agree*dim + d.neutral*dim + minRecX ;})
-                                .attr("y", function(d,i){return i*height;})
-                                .attr("width", function(d){return d.disagree*dim;})
-                                .attr("height", height)
-                                .attr("stroke", "white")
-                                .attr("fill", "#FF0000");
-                   rectDisagree.append("text")
-                         .text(function(d){return d.disagree + "%";})
-                         .attr("fill", "white")
-                         .attr("dy", ".85em")
-                         .attr("y", function(d,i){return i*height;})
-                         .attr("x", function(d){return d.agree*dim + d.neutral*dim + d.disagree*dim + minTextX});
-        }
-
-
-        function addQuestion(){
-            var question = document.getElementById("question").value;
-            var agree = Number(document.getElementById("agree").value);
-            var neutral = Number(document.getElementById("neutral").value);
-            var disagree = Number(document.getElementById("disagree").value);
-
-            if((agree + neutral + disagree ) != 100){
-                alert("La suma debe ser 100%");
-                return false;
-            }
-
-            var data = [{"question": question, "agree": agree, "neutral": neutral, "disagree": disagree, }]
-
-            var svgContainer = d3.select("div#data")
-                                 .attr("width", 3000)
-                                 .attr("height", 200);
-
-            var svgData= svgContainer.selectAll("text")
-                                     .data(data)
-                                     .enter();
-            var svgText = svgData.append("text")
-                                 .text(function(d,i){ return d.question;})
-                                 .attr("font-family", "calibri")
-                                 .attr("x", 1)
-                                 .attr("y", function(d,i){return 15+i*20;});
-
-            var dim = 8;
-            var minRecX = 300;
-            var minTextX= 270;
-            var height = 20;
-            //Draw the Rectangle
-            var rectAgree = svgData.append("g");
-            rectAgree.append("rect")
-                     .attr("x", function(d,i){return minRecX;})
-                     .attr("y", function(d,i){return i*height;})
-                     .attr("width", function(d){return d.agree*dim;})
-                     .attr("height", height)
-                     .attr("stroke", "white")
-                     .attr("fill", "#006600");
-            rectAgree.append("text")
-                     .text(function(d){return d.agree + "%";})
-                     .attr("fill", "white")
-                     .attr("dy", ".85em")
-                     .attr("y", function(d,i){return i*height;})
-                     .attr("x", function(d){return d.agree*dim + minTextX});
-
-            var rectNeutral = svgData.append("g");
-            rectNeutral.append("rect")
-                    .attr("x", function(d,i){return d.agree*dim + minRecX;})
-                    .attr("y", function(d,i){return i*height;})
-                    .attr("width", function(d){return d.neutral*dim;})
-                    .attr("height", height)
-                    .attr("stroke", "whtie")
-                    .attr("fill", "#C0C0C0");
-            rectNeutral.append("text")
-                 .text(function(d){return d.neutral + "%";})
-                 .attr("fill", "black")
-                 .attr("dy", ".85em")
-                 .attr("y", function(d,i){return i*height;})
-                 .attr("x", function(d){return d.agree*dim + d.neutral*dim + minTextX});
-
-
-            var rectDisagree = svgData.append("g");
-            rectDisagree.append("rect")
-                        .attr("x", function(d,i){return d.agree*dim + d.neutral*dim + minRecX ;})
-                        .attr("y", function(d,i){return i*height;})
-                        .attr("width", function(d){return d.disagree*dim;})
-                        .attr("height", height)
-                        .attr("stroke", "white")
-                        .attr("fill", "#FF0000");
-           rectDisagree.append("text")
-                 .text(function(d){return d.disagree + "%";})
-                 .attr("fill", "white")
-                 .attr("dy", ".85em")
-                 .attr("y", function(d,i){return i*height;})
-                 .attr("x", function(d){return d.agree*dim + d.neutral*dim + d.disagree*dim + minTextX});
-            return false;
+                         .attr("x", function(d){return d.agree*dim + d.neutral*dim + d.disagree*dim + minTextX});            
         }
     </script>
 </html>
--->
