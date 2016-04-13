@@ -24,13 +24,34 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href=".././static/css/creative.css" type="text/css">
-    <link rel="stylesheet" href="../novus-nvd3-254a7b3/build/nv.d3.min.css" type="text/css">
+    <link rel="stylesheet" href="../novus-nvd3-254a7b3/build/nv.d3.css" type="text/css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+        text {
+            font: 12px sans-serif;
+        }
+        svg {
+            display: block;
+        }
+        html, body, #chart1, svg {
+            margin: 0px;
+            padding: 0px;
+            height: 100%;
+            width: 100%;
+        }
+        .nv-controlsWrap {
+            display: none;
+            }
+        .nv-legendWrap {
+            display: none;
+        }
+    </style>
+
 </head>
 
 <body id="page-top">
@@ -79,6 +100,11 @@
         <div class="container" stly>
           <div class="row">
             <div id="data">
+                <div id="chart1" class='with-3d-shadow with-transitions'>
+                    <h1>Top 10 de municipios con mayor cantidad de viviendas</h1>
+                        <svg></svg>
+                   </div>
+
             </div>
           </div>
         </div>
@@ -88,4 +114,103 @@
 </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
   <script src="../novus-nvd3-254a7b3/build/nv.d3.js"></script> 
+<script>
+ 
+    var data_cant_vivienda = [
+        {
+            key: 'Cantidad de viviendas',
+            values: [
+                {
+                    "orden":1,
+                    "municipio":140140077,
+                    "nombre":"Cordoba",
+                    "cant_viviendas":473025
+                  },
+                  {
+                    "orden":2,
+                    "municipio":64270427,
+                    "nombre":"La Matanza",
+                    "cant_viviendas":447520
+                  },
+                  {
+                    "orden":3,
+                    "municipio":820840210,
+                    "nombre":"Rosario",
+                    "cant_viviendas":357547
+                  },
+                  {
+                    "orden":4,
+                    "municipio":63570357,
+                    "nombre":"General Pueyrredon",
+                    "cant_viviendas":308022
+                  },
+                  {
+                    "orden":5,
+                    "municipio":64410441,
+                    "nombre":"La Plata",
+                    "cant_viviendas":259762
+                  },
+                  {
+                    "orden":6,
+                    "municipio":64900490,
+                    "nombre":"Lomas de Zamora",
+                    "cant_viviendas":188324
+                  },
+                  {
+                    "orden":7,
+                    "municipio":66580658,
+                    "nombre":"Quilmes",
+                    "cant_viviendas":182340
+                  },
+                  {
+                    "orden":8,
+                    "municipio":64340434,
+                    "nombre":"Lanus",
+                    "cant_viviendas":157971
+                  },
+                  {
+                    "orden":9,
+                    "municipio":900840014,
+                    "nombre":"San Miguel de Tucumán",
+                    "cant_viviendas":157553
+                  },
+                  {
+                    "orden":10,
+                    "municipio":60280028,
+                    "nombre":"Almirante Brown",
+                    "cant_viviendas":156296
+                  }
+            ]
+        }
+    ];
+
+
+    var viviendasChart;
+    
+    nv.addGraph(function() {
+        chart = nv.models.multiBarHorizontalChart()
+            .x(function(d) { return d.nombre})
+            .y(function(d) { return d.cant_viviendas})
+            .barColor(d3.scale.category20().range())
+            .duration(250)
+            .margin({left: 150, right: 100});
+
+
+        chart.yAxis.tickFormat(d3.format(',.2f'));
+
+        chart.yAxis.axisLabel('Municipios');
+        chart.xAxis.axisLabel('Cantidad de viviendas').axisLabelDistance(70);
+
+        d3.select('#chart1 svg')
+            .datum(data_cant_vivienda)
+            .call(chart);
+
+        nv.utils.windowResize(chart.update);
+
+        return chart;
+    });
+
+
+</script>
+
 </html>
