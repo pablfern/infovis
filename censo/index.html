@@ -113,7 +113,8 @@
     <br>
     <div id="chart2" class='with-3d-shadow with-transitions'>
         <h1 style="text-align:center;">Top 10 de municipios agrupando los tipos de viviendas</h1>
-        <svg></svg>
+        <br>
+        <svg style="height:600px;"></svg>
     </div>
 
 
@@ -204,8 +205,8 @@
 
         chart.yAxis.tickFormat(d3.format(',.2f'));
 
-        chart.yAxis.axisLabel('Municipios');
-        chart.xAxis.axisLabel('Cantidad de viviendas').axisLabelDistance(70);
+        chart.yAxis.axisLabel('Cantidad de viviendas');
+        chart.xAxis.axisLabel('Municipios').axisLabelDistance(70);
 
         d3.select('#chart1 svg')
             .datum(data_cant_vivienda)
@@ -232,12 +233,13 @@
             .barColor(d3.scale.category20().range())
             .duration(250)
         .margin({left: 150, right: 100})
-            .stacked(true);
+            .stacked(true)
+            .height(500);
 
         chart.yAxis.tickFormat(d3.format(',.2f'));
 
-        chart.yAxis.axisLabel('Municipios');
-        chart.xAxis.axisLabel('Cantidad de viviendas').axisLabelDistance(70);
+        chart.yAxis.axisLabel('Cantidad de viviendas');
+        chart.xAxis.axisLabel('Municipios').axisLabelDistance(70);
 
 
         d3.select('#chart2 svg')
