@@ -1,0 +1,30 @@
+<html>
+    <body>
+
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" ></script>
+    <script>
+        var data_circles = [
+                               { "x_axis": 30, "y_axis": 20, "radius": 20, "color" : "green"},
+                               { "x_axis": 100, "y_axis": 70, "radius": 20, "color" : "blue"},
+                               { "x_axis": 120, "y_axis": 20, "radius": 20, "color" : "grey"},
+                               { "x_axis": 100, "y_axis": 70, "radius": 20, "color" : "blue"},
+                               { "x_axis": 200, "y_axis": 100, "radius": 20, "color" : "red"}
+                            ];
+     
+        var svgContainer = d3.select("body")
+                             .append("svg")
+                             .attr("width", 1000)
+                             .attr("height", 1000);
+     
+        var circles = svgContainer.selectAll("circle")
+                                  .data(data_circles)
+                                  .enter()
+                                  .append("circle");
+
+        var circleAttributes = circles.attr("cx", function (d) { return d.x_axis; })
+                                      .attr("cy", function (d) { return d.y_axis; })
+                                      .attr("r", function (d) { return d.radius; })
+                                      .style("fill", function(d) { return d.color; });
+    </script>
+</html>
