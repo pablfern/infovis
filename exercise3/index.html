@@ -96,6 +96,10 @@
             <svg>
             </svg>
         </div>
+        <div id="topSenders" class='with-3d-shadow with-transitions' style="height:600px">
+            <svg>
+            </svg>
+        </div>
         <div style="overflow-x: hidden;"  class="container">
           <div class="row">
             <div id="data">
@@ -113,9 +117,8 @@
     </script>
     <script src="../novus-nvd3-254a7b3/build/nv.d3.min.js"></script> 
     <script>
-    var data_tipo_viv = [{'values': [{'cantidad': 454, 'municipio': 'Cordoba'}, {'cantidad': 149, 'municipio': 'La Matanza'}, {'cantidad': 421, 'municipio': 'Rosario'}, {'cantidad': 573, 'municipio': 'General Pueyrredon'}, {'cantidad': 377, 'municipio': 'La Plata'}, {'cantidad': 108, 'municipio': 'Lomas de Zamora'}, {'cantidad': 97, 'municipio': 'Quilmes'}, {'cantidad': 84, 'municipio': 'Lanus'}, {'cantidad': 173, 'municipio': 'San Miguel de Tucum\xe1n'}, {'cantidad': 78, 'municipio': 'Almirante Brown'}], 'key': 'No Sabe No contesta'}, {'values': [{'cantidad': 332555, 'municipio': 'Cordoba'}, {'cantidad': 359347, 'municipio': 'La Matanza'}, {'cantidad': 219272, 'municipio': 'Rosario'}, {'cantidad': 180328, 'municipio': 'General Pueyrredon'}, {'cantidad': 171940, 'municipio': 'La Plata'}, {'cantidad': 159427, 'municipio': 'Lomas de Zamora'}, {'cantidad': 153769, 'municipio': 'Quilmes'}, {'cantidad': 124151, 'municipio': 'Lanus'}, {'cantidad': 113766, 'municipio': 'San Miguel de Tucum\xe1n'}, {'cantidad': 132653, 'municipio': 'Almirante Brown'}], 'key': 'Casa'}, {'values': [{'cantidad': 1424, 'municipio': 'Cordoba'}, {'cantidad': 14658, 'municipio': 'La Matanza'}, {'cantidad': 4323, 'municipio': 'Rosario'}, {'cantidad': 3008, 'municipio': 'General Pueyrredon'}, {'cantidad': 12007, 'municipio': 'La Plata'}, {'cantidad': 3321, 'municipio': 'Lomas de Zamora'}, {'cantidad': 5618, 'municipio': 'Quilmes'}, {'cantidad': 1288, 'municipio': 'Lanus'}, {'cantidad': 4054, 'municipio': 'San Miguel de Tucum\xe1n'}, {'cantidad': 6116, 'municipio': 'Almirante Brown'}], 'key': 'Casilla'}, {'values': [{'cantidad': 134162, 'municipio': 'Cordoba'}, {'cantidad': 64903, 'municipio': 'La Matanza'}, {'cantidad': 129210, 'municipio': 'Rosario'}, {'cantidad': 121982, 'municipio': 'General Pueyrredon'}, {'cantidad': 72567, 'municipio': 'La Plata'}, {'cantidad': 22603, 'municipio': 'Lomas de Zamora'}, {'cantidad': 20547, 'municipio': 'Quilmes'}, {'cantidad': 31352, 'municipio': 'Lanus'}, {'cantidad': 37695, 'municipio': 'San Miguel de Tucum\xe1n'}, {'cantidad': 15537, 'municipio': 'Almirante Brown'}], 'key': 'Departamento'}, {'values': [{'cantidad': 405, 'municipio': 'Cordoba'}, {'cantidad': 848, 'municipio': 'La Matanza'}, {'cantidad': 344, 'municipio': 'Rosario'}, {'cantidad': 404, 'municipio': 'General Pueyrredon'}, {'cantidad': 295, 'municipio': 'La Plata'}, {'cantidad': 230, 'municipio': 'Lomas de Zamora'}, {'cantidad': 246, 'municipio': 'Quilmes'}, {'cantidad': 167, 'municipio': 'Lanus'}, {'cantidad': 133, 'municipio': 'San Miguel de Tucum\xe1n'}, {'cantidad': 213, 'municipio': 'Almirante Brown'}], 'key': 'Local no construido para habitaci\xf3n'}, {'values': [{'cantidad': 154, 'municipio': 'Cordoba'}, {'cantidad': 65, 'municipio': 'La Matanza'}, {'cantidad': 69, 'municipio': 'Rosario'}, {'cantidad': 45, 'municipio': 'General Pueyrredon'}, {'cantidad': 33, 'municipio': 'La Plata'}, {'cantidad': 30, 'municipio': 'Lomas de Zamora'}, {'cantidad': 27, 'municipio': 'Quilmes'}, {'cantidad': 20, 'municipio': 'Lanus'}, {'cantidad': 29, 'municipio': 'San Miguel de Tucum\xe1n'}, {'cantidad': 14, 'municipio': 'Almirante Brown'}], 'key': 'Persona/s viviendo en la calle'}, {'values': [{'cantidad': 609, 'municipio': 'Cordoba'}, {'cantidad': 149, 'municipio': 'La Matanza'}, {'cantidad': 588, 'municipio': 'Rosario'}, {'cantidad': 59, 'municipio': 'General Pueyrredon'}, {'cantidad': 308, 'municipio': 'La Plata'}, {'cantidad': 42, 'municipio': 'Lomas de Zamora'}, {'cantidad': 102, 'municipio': 'Quilmes'}, {'cantidad': 60, 'municipio': 'Lanus'}, {'cantidad': 138, 'municipio': 'San Miguel de Tucum\xe1n'}, {'cantidad': 17, 'municipio': 'Almirante Brown'}], 'key': 'Pieza en hotel familiar o pensi\xf3n'}, {'values': [{'cantidad': 1297, 'municipio': 'Cordoba'}, {'cantidad': 2891, 'municipio': 'La Matanza'}, {'cantidad': 533, 'municipio': 'Rosario'}, {'cantidad': 378, 'municipio': 'General Pueyrredon'}, {'cantidad': 315, 'municipio': 'La Plata'}, {'cantidad': 1087, 'municipio': 'Lomas de Zamora'}, {'cantidad': 669, 'municipio': 'Quilmes'}, {'cantidad': 425, 'municipio': 'Lanus'}, {'cantidad': 504, 'municipio': 'San Miguel de Tucum\xe1n'}, {'cantidad': 350, 'municipio': 'Almirante Brown'}], 'key': 'Pieza en inquilinato'}, {'values': [{'cantidad': 1937, 'municipio': 'Cordoba'}, {'cantidad': 4464, 'municipio': 'La Matanza'}, {'cantidad': 2763, 'municipio': 'Rosario'}, {'cantidad': 1191, 'municipio': 'General Pueyrredon'}, {'cantidad': 1878, 'municipio': 'La Plata'}, {'cantidad': 1466, 'municipio': 'Lomas de Zamora'}, {'cantidad': 1252, 'municipio': 'Quilmes'}, {'cantidad': 419, 'municipio': 'Lanus'}, {'cantidad': 1056, 'municipio': 'San Miguel de Tucum\xe1n'}, {'cantidad': 1287, 'municipio': 'Almirante Brown'}], 'key': 'Rancho'}, {'values': [{'cantidad': 28, 'municipio': 'Cordoba'}, {'cantidad': 46, 'municipio': 'La Matanza'}, {'cantidad': 24, 'municipio': 'Rosario'}, {'cantidad': 54, 'municipio': 'General Pueyrredon'}, {'cantidad': 42, 'municipio': 'La Plata'}, {'cantidad': 10, 'municipio': 'Lomas de Zamora'}, {'cantidad': 13, 'municipio': 'Quilmes'}, {'cantidad': 5, 'municipio': 'Lanus'}, {'cantidad': 5, 'municipio': 'San Miguel de Tucum\xe1n'}, {'cantidad': 31, 'municipio': 'Almirante Brown'}], 'key': 'Vivienda m\xf3vil'}];
 
-    var data_tipo_viv = [
+    var email_data = [
   {
     "key": "Enviados",
     "color": "#d67777",
@@ -244,7 +247,7 @@
 
 
         d3.select('#chart1 svg')
-            .datum(data_tipo_viv)
+            .datum(email_data)
             .call(chart);
 
         nv.utils.windowResize(chart.update);
@@ -253,6 +256,84 @@
     });
 
     </script>
+    <!-- TopN Senders -->
+    <script type="text/javascript">
+        var senders = [
+          {
+            "key": "Enviados",
+            "color": "#d67777",
+            "values": [
+              { 
+                "label" : "info@news.oldcompany.com.ar" ,
+                "value" : 21331
+              } , 
+              { 
+                "label" : "noreply@oldcompany.com.ar" ,
+                "value" : 1407
+              } , 
+              { 
+                "label" : "info@travel3.oldcompany.com.ar" ,
+                "value" : 978
+              } , 
+              { 
+                "label" : "info@news.ofertas-inigualables.com" ,
+                "value" : 838
+              } , 
+              {
+                "label" : "billing@mandrill.com" ,
+                "value" : 466
+              } , 
+              { 
+                "label" : "alerts@logentries.com" ,
+                "value" : 437
+              } , 
+              { 
+                "label" : "info@news22.oldcompany.com.ar" ,
+                "value" : 401
+              } , 
+              {
+                "label" : "info@shopping32.oldcompany.com.ar" ,
+                "value" : 392
+              } , 
+              { 
+                "label" : "jose.gonzalez@oldcompany.com.ar" ,
+                "value" : 337
+              },
+              {
+                "label" : "info@news21.oldcompany.com.ar",
+                "value" : 311
+              }
+            ]
+          }
+        ]
+    var chart;
+    nv.addGraph(function() {
+        chart = nv.models.multiBarHorizontalChart()
+            .x(function(d) { return d.label})
+            .y(function(d) { return d.value})
+            .barColor(d3.scale.category20().range())
+            .duration(250)
+            .margin({left: 150, right: 100})
+            .stacked(false)
+            .height(500)
+            .showControls(false);
+
+        chart.yAxis.tickFormat(d3.format(',.2f'));
+
+        chart.yAxis.axisLabel('Cantidad de emails');
+        chart.xAxis.axisLabel('Mes').axisLabelDistance(70);
+
+
+        d3.select('#topSenders svg')
+            .datum(senders)
+            .call(chart);
+
+        nv.utils.windowResize(chart.update);
+
+        return chart;
+    });
+    </script>
+    <!-- Graph Script -->
     <script type="text/javascript">
         /* Set the diagrams Height & Width */
         var h = 1500, w = 1950;

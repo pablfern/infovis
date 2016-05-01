@@ -87,3 +87,18 @@ def _add_node(contact, sent, received, nodes, next_id):
                           }
         next_id += 1
     return nodes, next_id
+
+
+def get_top_senders(file_path='./final_data.txt', topN=10):
+    senders = {}
+    with open(file_path) as f:
+        content = f.readlines()
+        
+        for line in content:
+            myjson = json.loads(line)
+            _from = myjson['from'][0]
+            if not _from in senders:
+                senders[_from] = 0
+            senders[_from] = 1 + senders[_from]
+    import operator
+    return sorted(senders.items(), key=operator.itemgetter(1), reverse=True)[:topN] 
