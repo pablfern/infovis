@@ -87,6 +87,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Clase 3 - Datos Personales</h2>
+                    <h3>Emails laborales enviados y recibidos en 2015</h3>
                     <hr class="primary">
                 </div>
             </div>
@@ -121,39 +122,51 @@
     "values": [
       { 
         "label" : "Enero" ,
-        "value" : 10
+        "value" : 5
       } , 
       { 
         "label" : "Febrero" ,
-        "value" : 11
+        "value" : 47
       } , 
       { 
         "label" : "Marzo" ,
-        "value" : 12
+        "value" : 43
       } , 
       { 
         "label" : "Abril" ,
-        "value" : 13
+        "value" : 56
       } , 
       {
         "label" : "Mayo" ,
-        "value" : 14
+        "value" : 49
       } , 
       { 
         "label" : "Junio" ,
-        "value" : 15
+        "value" : 19
       } , 
       { 
         "label" : "Julio" ,
-        "value" : 16
+        "value" : 53
       } , 
       {
         "label" : "Agosto" ,
-        "value" : 17
+        "value" : 36
       } , 
       { 
         "label" : "Septiembre" ,
-        "value" : 18
+        "value" : 98
+      },
+      {
+        "label" : "Octubre",
+        "value" : 66
+      } ,
+      {
+        "label" : "Noviembre",
+        "value" : 61
+      } ,
+      {
+        "label" : "Diciembre",
+        "value" : 47
       }
     ]
   },
@@ -163,39 +176,51 @@
     "values": [
       { 
         "label" : "Enero" ,
-        "value" : 10
+        "value" : 1385
       } , 
       { 
         "label" : "Febrero" ,
-        "value" : 11
+        "value" : 1119
       } , 
       { 
         "label" : "Marzo" ,
-        "value" : 12
+        "value" : 1029
       } , 
       { 
         "label" : "Abril" ,
-        "value" : 13
+        "value" : 1629
       } , 
       {
         "label" : "Mayo" ,
-        "value" : 14
+        "value" : 1872
       } , 
       { 
         "label" : "Junio" ,
-        "value" : 15
+        "value" : 2496
       } , 
       { 
         "label" : "Julio" ,
-        "value" : 16
+        "value" : 2576
       } , 
       {
         "label" : "Agosto" ,
-        "value" : 17
+        "value" : 3140
       } , 
       { 
         "label" : "Septiembre" ,
-        "value" : 18
+        "value" : 3611
+      } ,
+      {
+        "label" : "Octubre",
+        "value" : 3969
+      } ,
+      {
+        "label" : "Noviembre",
+        "value" : 3391
+      } ,
+      {
+        "label" : "Diciembre",
+        "value" : 3581
       }
     ]
   }
@@ -207,9 +232,10 @@
             .y(function(d) { return d.value})
             .barColor(d3.scale.category20().range())
             .duration(250)
-        .margin({left: 150, right: 100})
+            .margin({left: 150, right: 100})
             .stacked(false)
-            .height(500);
+            .height(500)
+            .showControls(false);
 
         chart.yAxis.tickFormat(d3.format(',.2f'));
 
