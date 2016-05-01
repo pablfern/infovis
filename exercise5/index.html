@@ -1,0 +1,16 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <svg height="400" width="400" style="border: black solid 1px;">
+            <circle id="circle1" cx="75" cy="200" r="50" fill="red" />
+            <circle id="circle2" cx="250" cy="200" r="100" fill="blue" />
+        </svg>
+        <script>
+            var circle1 = document.getElementById("circle1");
+            var circle2 = document.getElementById("circle2");
+            circle1.setAttribute("r", 10*Math.sqrt(50/Math.PI) );
+            circle2.setAttribute("r", 10*Math.sqrt(100/Math.PI));
+        </script>
+    </body>
+</html>
