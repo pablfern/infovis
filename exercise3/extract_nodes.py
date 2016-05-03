@@ -102,3 +102,40 @@ def get_top_senders(file_path='./final_data.txt', topN=10):
             senders[_from] = 1 + senders[_from]
     import operator
     return sorted(senders.items(), key=operator.itemgetter(1), reverse=True)[:topN] 
+
+
+from sets import Set
+def create_bundle(file_path='./final_data.txt'):
+    nodes = {}
+    with open(file_path) as f:
+        content = f.readlines()
+
+        for line in content:
+            myjson = json.loads(line)
+            _from = myjson['from'][0]
+
+            recipients = myjson['to']
+            if not recipients.__class__ == list:
+                recipients = [recipients]
+
+            if not _from in nodes:
+                nodes[_from] = Set()
+            for recipient in recipients:
+                if not recipient in nodes:
+                    nodes[recipient] = Set()
+                if not recipient == 'pablo.fernandez@oldcompany.com.ar':
+                    nodes[_from].add(recipient)
+    
+    f = open('readme-flare-imports.json','w')
+    f.write('[\n')
+    for node in nodes.keys():
+        f.write('{"name":"' + node + '", "size": 1, ' + '"imports": [')
+        loops = len(nodes[node])
+        count = 1
+        for recipient in nodes[node]:
+            f.write('"' + recipient + '"')
+            if count < loops:
+                f.write(',')
+        f.write(']},\n')
+    f.write(']\n')
+    print 'Fin!'

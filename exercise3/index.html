@@ -1,52 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
 
-<head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+      <title>Clase 3 - Datos Personales</title>
 
-    <title>Clase 3 - Datos Personales</title>
+      <!-- Bootstrap Core CSS -->
+      <link rel="stylesheet" href=".././static/css/bootstrap.min.css" type="text/css">
 
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href=".././static/css/bootstrap.min.css" type="text/css">
+      <!-- Custom Fonts -->
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+      <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+      <link rel="stylesheet" href=".././static/font-awesome/css/font-awesome.min.css" type="text/css">
 
-    <!-- Custom Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href=".././static/font-awesome/css/font-awesome.min.css" type="text/css">
+      <!-- Plugin CSS -->
+      <link rel="stylesheet" href=".././static/css/animate.min.css" type="text/css">
 
-    <!-- Plugin CSS -->
-    <link rel="stylesheet" href=".././static/css/animate.min.css" type="text/css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href=".././static/css/creative.css" type="text/css">
-    <link rel="stylesheet" href="../novus-nvd3-254a7b3/build/nv.d3.min.css" type="text/css">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-<style>
-
-.link {
-  stroke: #000;
-  stroke-width: 1.5px;
-}
-
-.node {
-  cursor: move;
-  fill: #ccc;
-  stroke: #000;
-  stroke-width: 1.5px;
-}
-
-</style>
-</head>
+      <!-- Custom CSS -->
+      <link rel="stylesheet" href=".././static/css/creative.css" type="text/css">
+      <link rel="stylesheet" href="../novus-nvd3-254a7b3/build/nv.d3.min.css" type="text/css">
+      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    <style>
+      .node {
+        font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+        fill: #bbb;
+      }
+      .node:hover {
+        fill: #000;
+      }
+      .link {
+        stroke: steelblue;
+        stroke-opacity: .4;
+        fill: none;
+        pointer-events: none;
+      }
+      .node:hover,
+      .node--source,
+      .node--target {
+        font-weight: 700;
+      }
+      .node--source {
+        fill: #2ca02c;
+      }
+      .node--target {
+        fill: #2ca02c;
+      }
+      .link--source,
+      .link--target {
+        stroke-opacity: 1;
+        stroke-width: 2px;
+      }
+      .link--source {
+        stroke: #2ca02c;
+      }
+      .link--target {
+        stroke: #2ca02c;
+      }
+    </style>
+  </head>
 
 <body id="page-top">
 
@@ -248,6 +269,7 @@
 
         d3.select('#chart1 svg')
             .datum(email_data)
+            .style('width', 1000)
             .call(chart);
 
         nv.utils.windowResize(chart.update);
@@ -326,6 +348,7 @@
 
         d3.select('#topSenders svg')
             .datum(senders)
+            .style('width', 1000)
             .call(chart);
 
         nv.utils.windowResize(chart.update);
@@ -334,88 +357,104 @@
     });
     </script>
     <!-- Graph Script -->
-    <script type="text/javascript">
-        /* Set the diagrams Height & Width */
-        var h = 1500, w = 1950;
-        
-        /* Set the color scale we want to use */
-        var color = d3.scale.category20();
-        
-        /* Establish/instantiate an SVG container object */
-        var svg = d3.select("body")
-                    .append("svg")
-                    .attr("height",h)
-                    .attr("width",w);
-        
-        /* Build the directional arrows for the links/edges */
-        svg.append("svg:defs")
-           .selectAll("marker")
-           .data(["end"]) 
-           .enter().append("svg:marker")
-           .attr("id", String)
-           .attr("viewBox", "0 -5 10 10")
-           .attr("refX", 15)
-           .attr("refY", -1.5)
-           .attr("markerWidth", 6)
-           .attr("markerHeight", 6)
-           .attr("orient", "auto")
-           .append("svg:path")
-           .attr("d", "M0,-5L10,0L0,5");
-        
-        /* Pre-Load the json data using the queue library */
-        queue().defer(d3.json, "nodes.json")
-               .defer(d3.json, "links.json")
-               .await(makeDiag); 
-        
-        /* Define the main worker or execution function */
-        function makeDiag(error, nodes, links, table) {
-            /* Draw the node labels first */
-           var texts = svg.selectAll("text")
-                            .data(nodes)
-                            .enter()
-                            .append("text")
-                            .attr("fill", "black")
-                            .attr("font-family", "sans-serif")
-                            .attr("font-size", "10px")
-                            .text(function(d) { return d.name; }); 
-            /* Establish the dynamic force behavor of the nodes */
-            var force = d3.layout.force()
-                            .nodes(nodes)
-                            .links(links)
-                            .size([w,h])
-                            .linkDistance([250])
-                            .charge([-1500])
-                            .gravity(0.3)
-                            .start();
-            /* Draw the edges/links between the nodes */
-            var edges = svg.selectAll("line")
-                            .data(links)
-                            .enter()
-                            .append("line")
-                            .style("stroke", "#ccc")
-                            .style("stroke-width", 1)
-                            .attr("marker-end", "url(#end)");
-            /* Draw the nodes themselves */                
-            var nodes = svg.selectAll("circle")
-                            .data(nodes)
-                            .enter()
-                            .append("circle")
-                            .attr("r", 20)
-                            .attr("opacity", 0.5)
-                            .style("fill", function(d,i) { return color(i); })
-                            .call(force.drag);
-            /* Run the Force effect */
-            force.on("tick", function() {
-                       edges.attr("x1", function(d) { return d.source.x; })
-                            .attr("y1", function(d) { return d.source.y; })
-                            .attr("x2", function(d) { return d.target.x; })
-                            .attr("y2", function(d) { return d.target.y; });
-                       nodes.attr("cx", function(d) { return d.x; })
-                            .attr("cy", function(d) { return d.y; })
-                       texts.attr("transform", function(d) {
-                                return "translate(" + d.x + "," + d.y + ")";
-                                });
-                       }); // End tick func
-        };
-    </script>
+    <script>
+var diameter = 750,
+    radius = diameter / 2,
+    innerRadius = radius - 120;
+var cluster = d3.layout.cluster()
+    .size([360, innerRadius])
+    .sort(null)
+    .value(function(d) { return d.size; });
+var bundle = d3.layout.bundle();
+var line = d3.svg.line.radial()
+    .interpolate("bundle")
+    .tension(.85)
+    .radius(function(d) { return d.y; })
+    .angle(function(d) { return d.x / 180 * Math.PI; });
+var svg = d3.select("body").append("svg")
+    .attr("width", diameter)
+    .attr("height", diameter)
+  .append("g")
+    .attr("transform", "translate(" + radius + "," + radius + ")");
+var link = svg.append("g").selectAll(".link"),
+    node = svg.append("g").selectAll(".node");
+d3.json("readme-flare-imports.json", function(error, classes) {
+  if (error) throw error;
+  var nodes = cluster.nodes(packageHierarchy(classes)),
+      links = packageImports(nodes);
+  link = link
+      .data(bundle(links))
+    .enter().append("path")
+      .each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
+      .attr("class", "link")
+      .attr("d", line);
+  node = node
+      .data(nodes.filter(function(n) { return !n.children; }))
+    .enter().append("text")
+      .attr("class", "node")
+      .attr("dy", ".31em")
+      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+      .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+      .text(function(d) { return d.key; })
+      .on("mouseover", mouseovered)
+      .on("mouseout", mouseouted);
+});
+function mouseovered(d) {
+  node
+      .each(function(n) { n.target = n.source = false; });
+  link
+      .classed("link--target", function(l) { if (l.target === d) return l.source.source = true; })
+      .classed("link--source", function(l) { if (l.source === d) return l.target.target = true; })
+    .filter(function(l) { return l.target === d || l.source === d; })
+      .each(function() { this.parentNode.appendChild(this); });
+  node
+      .classed("node--target", function(n) { return n.target; })
+      .classed("node--source", function(n) { return n.source; });
+}
+function mouseouted(d) {
+  link
+      .classed("link--target", false)
+      .classed("link--source", false);
+  node
+      .classed("node--target", false)
+      .classed("node--source", false);
+}
+d3.select(self.frameElement).style("height", diameter + "px");
+// Lazily construct the package hierarchy from class names.
+function packageHierarchy(classes) {
+  var map = {};
+  function find(name, data) {
+    var node = map[name], i;
+    if (!node) {
+      node = map[name] = data || {name: name, children: []};
+      if (name.length) {
+        node.parent = find(name.substring(0, i = name.lastIndexOf(".")));
+        node.parent.children.push(node);
+        node.key = name.substring(i + 1);
+      }
+    }
+    return node;
+  }
+  classes.forEach(function(d) {
+    find(d.name, d);
+  });
+  return map[""];
+}
+// Return a list of imports for the given array of nodes.
+function packageImports(nodes) {
+  var map = {},
+      imports = [];
+  // Compute a map from name to node.
+  nodes.forEach(function(d) {
+    map[d.name] = d;
+  });
+  // For each import, construct a link from the source to target node.
+  nodes.forEach(function(d) {
+    if (d.imports) d.imports.forEach(function(i) {
+      imports.push({source: map[d.name], target: map[i]});
+    });
+  });
+  return imports;
+}
+</script>
 </html>
