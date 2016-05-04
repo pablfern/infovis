@@ -128,13 +128,10 @@
                     </svg>
                     <hr class="primary" style="max-width:750px">
                 </div>
-                <div id="bundle" style="overflow:visible; margin-top:120px">
+                <div id="bundle" style="overflow:visible; margin-top:250px">
                   <svg style="overflow:visible">
                   </svg>
                 </div>
-            
-
-
             </div>
         </div>
 
@@ -380,8 +377,8 @@
           .radius(function(d) { return d.y; })
           .angle(function(d) { return d.x / 180 * Math.PI; });
       var svg = d3.select("body #bundle svg")
-          .attr("width", diameter + 5000)
-          .attr("height", diameter + 5000)
+          .attr("width", diameter + 150)
+          .attr("height", diameter + 150)
         .append("g")
           .attr("transform", "translate(" + radius + "," + radius + ")");
       var link = svg.append("g").selectAll(".link"),
